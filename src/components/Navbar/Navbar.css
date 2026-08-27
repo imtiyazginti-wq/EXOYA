@@ -1,0 +1,364 @@
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.navbar-container {
+    width: 100%;
+    max-width: 1400px;
+    height: 72px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Logo */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    text-decoration: none;
+    color: #131e3b;
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.logo img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+/* Navigation */
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.nav-links a {
+    position: relative;
+    text-decoration: none;
+    color: #3181f1;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.25s ease;
+}
+
+.nav-links a:hover {
+    color: black;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -7px;
+    width: 0;
+    height: 2px;
+    background: #2563eb;
+    transition: width 0.25s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Actions */
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.icon-btn,
+.cart-btn,
+.mobile-menu-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0f172a;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.icon-btn:hover {
+    background: #f1f5f9;
+    transform: translateY(-2px);
+}
+
+.cart-btn {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    margin-left: 3px;
+    border-radius: 50%;
+}
+
+.cart-btn:hover {
+    background: #f1f5f9;
+}
+
+.cart-btn span {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 17px;
+    height: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #2563eb;
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+/* Mobile Menu Button */
+
+.mobile-menu-btn {
+    display: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+}
+
+.mobile-menu-btn:hover {
+    background: #f1f5f9;
+}
+
+/* Search Overlay */
+
+.search-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(248, 250, 252, 0.97);
+    backdrop-filter: blur(20px);
+    padding: 100px 24px;
+}
+
+.search-box {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+}
+
+.search-box svg {
+    color: #64748b;
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    color: #0f172a;
+    background: transparent;
+}
+
+.search-box input::placeholder {
+    color: #94a3b8;
+}
+
+.search-box button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #475569;
+}
+
+.popular-searches {
+    max-width: 900px;
+    margin: 30px auto;
+}
+
+.popular-searches p {
+    margin-bottom: 15px;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.popular-searches div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.popular-searches span {
+    padding: 10px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 999px;
+    background: white;
+    color: #334155;
+    font-size: 14px;
+}
+
+/* Mobile */
+
+.mobile-menu {
+    display: none;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+
+    .nav-links {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        display: flex;
+    }
+
+    .mobile-menu {
+        position: fixed;
+        top: 72px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 72px);
+        display: flex;
+        flex-direction: column;
+        padding: 30px 24px;
+        background: rgba(255, 255, 255, 0.97);
+        backdrop-filter: blur(20px);
+        z-index: 999;
+    }
+
+    .mobile-menu a {
+        padding: 20px 0;
+        border-bottom: 1px solid #e5e7eb;
+        text-decoration: none;
+        color: #0f172a;
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .navbar-container {
+        padding: 0 18px;
+    }
+
+    .logo span {
+        display: none;
+    }
+
+    .nav-actions {
+        gap: 2px;
+    }
+
+    .search-overlay {
+        padding: 90px 16px;
+    }
+
+    .search-box {
+        padding: 16px;
+    }
+
+    .search-box input {
+        font-size: 15px;
+    }
+
+}
+
+.cart-btn {
+    position: relative;
+}
+
+
+.cart-count {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #111;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* ================= WISHLIST NAV ================= */
+
+.wishlist-nav-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wishlist-count {
+    position: absolute;
+    top: -6px;
+    right: -7px;
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+    border-radius: 50%;
+    background: #e63946;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    border: 2px solid #fff;
+    animation: wishlistCountPop 0.25s ease;
+}
+
+@keyframes wishlistCountPop {
+    0% {
+        transform: scale(0);
+    }
+
+    70% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

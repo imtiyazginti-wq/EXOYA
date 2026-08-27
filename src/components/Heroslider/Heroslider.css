@@ -1,0 +1,341 @@
+.hero-slider {
+    width: 100%;
+    padding: 18px 24px 25px;
+    background: #f8fafc;
+}
+
+.hero-slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    height: 380px;
+    margin: 0 auto;
+    display: flex;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #eef4ff;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.hero-slider-content {
+    position: relative;
+    z-index: 3;
+    width: 48%;
+    padding: 55px 40px 55px 65px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #0f172a;
+}
+
+.hero-accent {
+    width: fit-content;
+    margin-bottom: 12px;
+    padding: 6px 11px;
+    border-radius: 999px;
+    background: rgba(37, 99, 235, 0.1);
+    color: #2563eb;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+}
+
+.hero-category {
+    margin: 0 0 7px;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.hero-slider-content h1 {
+    max-width: 500px;
+    margin: 0;
+    color: #0f172a;
+    font-size: clamp(36px, 4vw, 58px);
+    line-height: 0.98;
+    letter-spacing: -2.5px;
+}
+
+.hero-description {
+    max-width: 430px;
+    margin: 16px 0 22px;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.hero-shop-btn {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 999px;
+    background: #2563eb;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.hero-shop-btn span {
+    font-size: 17px;
+    transition: transform 0.3s ease;
+}
+
+.hero-shop-btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 10px 25px rgba(37, 99, 235, 0.25);
+}
+
+.hero-shop-btn:hover span {
+    transform: translateX(4px);
+}
+
+/* =========================
+   IMAGE
+========================= */
+
+.hero-slider-image {
+    position: relative;
+    width: 52%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.hero-slider-image::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: -100px;
+    top: 0;
+    width: 180px;
+    height: 100%;
+    background: #eef4ff;
+    clip-path: polygon(0 0,
+            100% 0,
+            60% 100%,
+            0 100%);
+}
+
+.hero-slider-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+/* =========================
+   ARROWS
+========================= */
+
+.slider-arrow {
+    position: absolute;
+    z-index: 5;
+    top: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    color: #0f172a;
+    font-size: 17px;
+    cursor: pointer;
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.12);
+    transform: translateY(-50%);
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease;
+}
+
+.slider-arrow:hover {
+    background: #2563eb;
+    color: white;
+    transform:
+        translateY(-50%) scale(1.08);
+}
+
+.slider-prev {
+    left: 20px;
+}
+
+.slider-next {
+    right: 20px;
+}
+
+/* =========================
+   DOTS
+========================= */
+
+.slider-dots {
+    position: absolute;
+    z-index: 6;
+    left: 65px;
+    bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.slider-dot {
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: #cbd5e1;
+    cursor: pointer;
+    transition:
+        width 0.3s ease,
+        background 0.3s ease;
+}
+
+.slider-dot.active {
+    width: 24px;
+    border-radius: 999px;
+    background: #2563eb;
+}
+
+/* =========================
+   COUNTER
+========================= */
+
+.hero-counter {
+    position: absolute;
+    z-index: 6;
+    right: 30px;
+    bottom: 20px;
+    display: flex;
+    gap: 6px;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.hero-counter span {
+    color: #cbd5e1;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+    .hero-slider {
+        padding: 15px 16px 20px;
+    }
+
+    .hero-slider-container {
+        height: 340px;
+    }
+
+    .hero-slider-content {
+        padding-left: 40px;
+    }
+
+    .hero-slider-content h1 {
+        font-size: 42px;
+    }
+
+    .hero-description {
+        max-width: 330px;
+        font-size: 12px;
+    }
+
+    .slider-dots {
+        left: 40px;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+    .hero-slider {
+        padding: 10px 12px 18px;
+    }
+
+    .hero-slider-container {
+        height: 470px;
+        flex-direction: column;
+        border-radius: 16px;
+    }
+
+    .hero-slider-content {
+        width: 100%;
+        height: 52%;
+        padding: 25px 25px 10px;
+        justify-content: flex-start;
+    }
+
+    .hero-slider-image {
+        position: relative;
+        width: 100%;
+        height: 48%;
+    }
+
+    .hero-slider-image::before {
+        display: none;
+    }
+
+    /* IMAGE BOX KE EXACT CENTER ME ARROWS */
+
+    .slider-arrow {
+        top: 76%;
+        width: 32px;
+        height: 32px;
+        transform: translateY(-50%);
+    }
+
+    .slider-prev {
+        left: 50px;
+        transform:
+            translate(calc(-50% - 25px), -50%);
+    }
+
+    .slider-next {
+        left: 75%;
+        transform:
+            translate(calc(50% + 25px), -50%);
+    }
+
+    .slider-prev:hover {
+        transform:
+            translate(calc(-50% - 25px), -50%) scale(1.08);
+    }
+
+    .slider-next:hover {
+        transform:
+            translate(calc(50% + 25px), -50%) scale(1.08);
+    }
+
+    .slider-dots {
+        left: 25px;
+        bottom: 15px;
+    }
+
+    .hero-counter {
+        right: 20px;
+        bottom: 15px;
+    }
+}

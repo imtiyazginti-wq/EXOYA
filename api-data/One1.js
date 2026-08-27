@@ -1,0 +1,336 @@
+const products = [
+  // ==========================================
+  // HOME & LIVING
+  // ==========================================
+
+  {
+    id: 27,
+    name: "Modern Premium Sofa",
+    category: "home-living",
+    price: 10999,
+    oldPrice: 19999,
+    rating: 4.6,
+    reviews: 0,
+    badge: "Sofa",
+    image: "/assets/homeliving/home1.jpg",
+  },
+
+  {
+    id: 28,
+    name: "Modern Table Lamp",
+    category: "home-living",
+    price: 1299,
+    oldPrice: 1799,
+    rating: 4.1,
+    reviews: 0,
+    badge: "Lamp",
+    image: "/assets/homeliving/home5.jpg",
+  },
+
+  {
+    id: 29,
+    name: "Best & Preium Tea Set",
+    category: "home-living",
+    price: 799,
+    oldPrice: 1299,
+    rating: 4.2,
+    reviews: 0,
+    badge: "Cups",
+    image: "/assets/homeliving/home6.jpg",
+  },
+
+  {
+    id: 30,
+    name: "Premium Modern Sofa Chair",
+    category: "home-living",
+    price: 999,
+    oldPrice: 1299,
+    rating: 4.7,
+    reviews: 0,
+    badge: "Chair",
+    image: "/assets/homeliving/home4.jpg",
+  },
+
+  {
+    id: 31,
+    name: "Premium Comfort Sofa",
+    category: "home-living",
+    price: 8999,
+    oldPrice: 15999,
+    rating: 4.2,
+    reviews: 0,
+    badge: "Sofa",
+    image: "/assets/homeliving/home2.jpg",
+  },
+
+  {
+    id: 32,
+    name: "Premium Ceramic Wash Basin",
+    category: "home-living",
+    price: 4899,
+    oldPrice: 5399,
+    rating: 4.7,
+    reviews: 0,
+    badge: "Arora",
+    image: "/assets/homeliving/home7.jpg",
+  },
+
+  {
+    id: 33,
+    name: "Comfortable Accent Chair",
+    category: "home-living",
+    price: 1099,
+    oldPrice: 1799,
+    rating: 4.4,
+    reviews: 0,
+    badge: "Chair",
+    image: "/assets/homeliving/home3.jpg",
+  },
+
+  {
+    id: 34,
+    name: "Beautiful Decorative Flower Pot",
+    category: "home-living",
+    price: 599,
+    oldPrice: 999,
+    rating: 4.7,
+    reviews: 0,
+    badge: "Jasmin",
+    image: "/assets/homeliving/home8.jpg",
+  },
+
+  {
+    id: 35,
+    name: "Multi-Purpose Storage Drawer",
+    category: "home-living",
+    price: 999,
+    oldPrice: 1499,
+    rating: 4.4,
+    reviews: 0,
+    badge: "Dura",
+    image: "/assets/homeliving/home9.jpg",
+  },
+
+  {
+    id: 36,
+    name: "Premium Cotton Bedsheet with 2 Pillow Covers",
+    category: "home-living",
+    price: 899,
+    oldPrice: 1399,
+    rating: 4.4,
+    reviews: 0,
+    badge: "Elastic",
+    image: "/assets/homeliving/home10.jpg",
+  },
+
+  {
+    id: 37,
+    name: "Premium 2-Burner Gas Stove",
+    category: "home-living",
+    price: 999,
+    oldPrice: 1399,
+    rating: 4.5,
+    reviews: 0,
+    badge: "Stove",
+    image: "/assets/homeliving/home14.jpg",
+  },
+
+  {
+    id: 38,
+    name: "Premium Soft Cotton Towels - Set of 2",
+    category: "home-living",
+    price: 349,
+    oldPrice: 659,
+    rating: 4.4,
+    reviews: 0,
+    badge: "",
+    image: "/assets/homeliving/home12.jpg",
+  },
+
+  {
+    id: 39,
+    name: "Premium Extra-Length Cotton Bedsheet",
+    category: "home-living",
+    price: 1099,
+    oldPrice: 1499,
+    rating: 4.3,
+    reviews: 0,
+    badge: "Casa",
+    image: "/assets/homeliving/home11.jpg",
+  },
+
+  {
+    id: 40,
+    name: "Premium Storage Cabinet with Drawers",
+    category: "home-living",
+    price: 8799,
+    oldPrice: 13999,
+    rating: 4.6,
+    reviews: 0,
+    badge: "",
+    image: "/assets/homeliving/home13.jpg",
+  },
+
+  // ==========================================
+  // BEAUTY
+  // ==========================================
+
+  {
+    id: 41,
+    name: "Luxury Gentle Face Wash",
+    category: "beauty",
+    price: 359,
+    oldPrice: 799,
+    rating: 4.1,
+    reviews: 0,
+    badge: "D & K",
+    image: "/assets/beauty/b1.jpg",
+  },
+
+  {
+    id: 42,
+    name: "D & K Hydrating Face Wash",
+    category: "beauty",
+    price: 799,
+    oldPrice: 1099,
+    rating: 4.2,
+    reviews: 0,
+    badge: "Beauty",
+    image: "/assets/fashionimages/Make.jpg",
+  },
+
+  {
+    id: 43,
+    name: "Complete Skin Care Kit",
+    category: "beauty",
+    price: 289,
+    oldPrice: 999,
+    rating: 4.3,
+    reviews: 0,
+    badge: "Himalaya",
+    image: "/assets/beauty/b2.jpg",
+  },
+
+  {
+    id: 44,
+    name: "Charcoal Deep Cleansing Face Wash",
+    category: "beauty",
+    price: 359,
+    oldPrice: 1099,
+    rating: 4.4,
+    reviews: 0,
+    badge: "PATENTED",
+    image: "/assets/beauty/b3.jpg",
+  },
+
+  {
+    id: 45,
+    name: "Complete Skincare Essentials",
+    category: "beauty",
+    price: 899,
+    oldPrice: 1499,
+    rating: 4.6,
+    reviews: 187,
+    badge: "Beauty",
+    image:
+      "https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=700&q=80",
+  },
+
+  {
+    id: 46,
+    name: "Oil Control Face Wash for Oily Skin",
+    category: "beauty",
+    price: 299,
+    oldPrice: 499,
+    rating: 4.4,
+    reviews: 187,
+    badge: "Plom",
+    image: "/assets/beauty/b5.jpg",
+  },
+
+  {
+    id: 47,
+    name: "Anti-Acne Face Wash for Pimples",
+    category: "beauty",
+    price: 239,
+    oldPrice: 419,
+    rating: 4.4,
+    reviews: 767,
+    badge: "BLESTAA",
+    image: "/assets/beauty/b4.jpg",
+  },
+
+  {
+    id: 48,
+    name: "Hair Growth Shampoo",
+    category: "beauty",
+    price: 399,
+    oldPrice: 489,
+    rating: 4.5,
+    reviews: 567,
+    badge: "ELEMENT",
+    image: "/assets/beauty/b8.jpg",
+  },
+
+  {
+    id: 49,
+    name: "Oscar Luxury Perfume - 4 Piece Combo",
+    category: "beauty",
+    price: 249,
+    oldPrice: 599,
+    rating: 4.8,
+    reviews: 897,
+    badge: "OSCAR",
+    image: "/assets/beauty/b6.jpg",
+  },
+
+  {
+    id: 50,
+    name: "LAUREL Peak Long-Lasting Perfume for Men & Women",
+    category: "beauty",
+    price: 239,
+    oldPrice: 419,
+    rating: 4.3,
+    reviews: 767,
+    badge: "AadilQ",
+    image: "/assets/beauty/b7.jpg",
+  },
+
+  {
+    id: 51,
+    name: "Anti-Dandruff Shampoo for Healthy Hair",
+    category: "beauty",
+    price: 319,
+    oldPrice: 579,
+    rating: 3.9,
+    reviews: 321,
+    badge: "Man",
+    image: "/assets/beauty/b9.jpg",
+  },
+
+  {
+    id: 52,
+    name: "Vitamin C Brightening Face Serum",
+    category: "beauty",
+    price: 339,
+    oldPrice: 529,
+    rating: 4.3,
+    reviews: 311,
+    badge: "Serum",
+    image: "/assets/beauty/b10.jpg",
+  },
+
+  {
+    id: 53,
+    name: "Aurevia — elegant & luxury Perfume For You",
+    category: "beauty",
+    price: 449,
+    oldPrice: 589,
+    rating: 4.5,
+    reviews: 311,
+    badge: "Perfume",
+    image: "/assets/beauty/b13.png",
+  },
+];
+
+export default products;
