@@ -232,8 +232,7 @@ const products = [
     rating: 4.6,
     reviews: 187,
     badge: "Beauty",
-    image:
-      "https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=700&q=80",
+    image: "/assets/beauty/b13.png",
   },
 
   {
