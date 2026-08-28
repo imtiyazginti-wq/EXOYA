@@ -1,4 +1,12 @@
-import { Minus, Plus, Trash2, ShoppingBag, ArrowRight, ShieldCheck, Truck, } from "lucide-react";
+import {
+    Minus,
+    Plus,
+    Trash2,
+    ShoppingBag,
+    ArrowRight,
+    ShieldCheck,
+    Truck,
+} from "lucide-react";
 
 import { Link } from "react-router-dom";
 
@@ -16,6 +24,22 @@ const Cart = () => {
         cartTotal,
         clearCart,
     } = useCart();
+
+    // ================================
+    // PRODUCT IMAGE URL
+    // ================================
+
+    const getProductImage = (image) => {
+
+        if (!image) {
+            return "";
+        }
+
+        return image.startsWith("http")
+            ? image
+            : `http://localhost:5000${image}`;
+
+    };
 
     // ================================
     // EMPTY CART
@@ -44,7 +68,9 @@ const Cart = () => {
                     className="continue-shopping-btn"
                 >
                     Continue Shopping
+
                     <ArrowRight size={18} />
+
                 </Link>
 
             </main>
@@ -70,6 +96,7 @@ const Cart = () => {
     // ================================
 
     return (
+
         <main className="cart-page">
 
             {/* ================================
@@ -128,7 +155,9 @@ const Cart = () => {
                             <div className="cart-item-image">
 
                                 <img
-                                    src={item.image}
+                                    src={getProductImage(
+                                        item.image
+                                    )}
                                     alt={item.name}
                                 />
 
@@ -147,10 +176,12 @@ const Cart = () => {
                                 </h2>
 
                                 <p className="cart-price">
+
                                     ₹
                                     {Number(
                                         item.price || 0
                                     ).toLocaleString("en-IN")}
+
                                 </p>
 
                                 {/* QUANTITY */}
@@ -166,7 +197,9 @@ const Cart = () => {
                                         }
                                         aria-label="Decrease quantity"
                                     >
+
                                         <Minus size={16} />
+
                                     </button>
 
                                     <span>
@@ -182,7 +215,9 @@ const Cart = () => {
                                         }
                                         aria-label="Increase quantity"
                                     >
+
                                         <Plus size={16} />
+
                                     </button>
 
                                 </div>
@@ -252,10 +287,12 @@ const Cart = () => {
                         </span>
 
                         <strong>
+
                             ₹
                             {cartTotal.toLocaleString(
                                 "en-IN"
                             )}
+
                         </strong>
 
                     </div>
@@ -289,10 +326,12 @@ const Cart = () => {
                         </span>
 
                         <strong>
+
                             ₹
                             {grandTotal.toLocaleString(
                                 "en-IN"
                             )}
+
                         </strong>
 
                     </div>

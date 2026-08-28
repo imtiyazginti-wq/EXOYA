@@ -1,51 +1,84 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import {
+    createContext,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+} from "react";
 
 const Cartcontext = createContext(null);
 
 export const CartProvider = ({ children }) => {
 
+    // ========================================
     // LOAD CART FROM LOCAL STORAGE
+    // ========================================
+
     const [cartItems, setCartItems] = useState(() => {
+
         try {
-            const savedCart = localStorage.getItem("exoya-cart");
+
+            const savedCart =
+                localStorage.getItem("exoya-cart");
 
             return savedCart
                 ? JSON.parse(savedCart)
                 : [];
 
         } catch (error) {
-            console.error("Failed to load cart:", error);
+
+            console.error(
+                "Failed to load cart:",
+                error
+            );
+
             return [];
+
         }
+
     });
 
+    // ========================================
     // SAVE CART TO LOCAL STORAGE
+    // ========================================
+
     useEffect(() => {
+
         localStorage.setItem(
             "exoya-cart",
             JSON.stringify(cartItems)
         );
+
     }, [cartItems]);
 
+    // ========================================
     // ADD TO CART
+    // ========================================
+
     const addToCart = (product) => {
 
         setCartItems((prevItems) => {
 
-            const existingProduct = prevItems.find(
-                (item) => item.id === product.id
-            );
+            const existingProduct =
+                prevItems.find(
+                    (item) =>
+                        item.id === product.id
+                );
 
             // PRODUCT ALREADY EXISTS
+
             if (existingProduct) {
 
                 return prevItems.map((item) => {
 
-                    if (item.id === product.id) {
+                    if (
+                        item.id === product.id
+                    ) {
 
                         return {
                             ...item,
-                            quantity: item.quantity + 1
+                            quantity:
+                                item.quantity + 1,
                         };
 
                     }
@@ -57,37 +90,47 @@ export const CartProvider = ({ children }) => {
             }
 
             // NEW PRODUCT
+
             return [
                 ...prevItems,
                 {
                     ...product,
-                    quantity: 1
-                }
+                    quantity: 1,
+                },
             ];
 
         });
 
     };
 
+    // ========================================
     // BUY NOW
+    // ========================================
+
     const buyNow = (product) => {
 
         setCartItems((prevItems) => {
 
-            const existingProduct = prevItems.find(
-                (item) => item.id === product.id
-            );
+            const existingProduct =
+                prevItems.find(
+                    (item) =>
+                        item.id === product.id
+                );
 
             // PRODUCT ALREADY EXISTS
+
             if (existingProduct) {
 
                 return prevItems.map((item) => {
 
-                    if (item.id === product.id) {
+                    if (
+                        item.id === product.id
+                    ) {
 
                         return {
                             ...item,
-                            quantity: item.quantity + 1
+                            quantity:
+                                item.quantity + 1,
                         };
 
                     }
@@ -99,41 +142,52 @@ export const CartProvider = ({ children }) => {
             }
 
             // NEW PRODUCT
+
             return [
                 ...prevItems,
                 {
                     ...product,
-                    quantity: 1
-                }
+                    quantity: 1,
+                },
             ];
 
         });
 
     };
 
+    // ========================================
     // REMOVE PRODUCT
+    // ========================================
+
     const removeFromCart = (productId) => {
 
         setCartItems((prevItems) =>
             prevItems.filter(
-                (item) => item.id !== productId
+                (item) =>
+                    item.id !== productId
             )
         );
 
     };
 
+    // ========================================
     // INCREASE QUANTITY
+    // ========================================
+
     const increaseQuantity = (productId) => {
 
         setCartItems((prevItems) =>
 
             prevItems.map((item) => {
 
-                if (item.id === productId) {
+                if (
+                    item.id === productId
+                ) {
 
                     return {
                         ...item,
-                        quantity: item.quantity + 1
+                        quantity:
+                            item.quantity + 1,
                     };
 
                 }
@@ -146,7 +200,10 @@ export const CartProvider = ({ children }) => {
 
     };
 
+    // ========================================
     // DECREASE QUANTITY
+    // ========================================
+
     const decreaseQuantity = (productId) => {
 
         setCartItems((prevItems) =>
@@ -154,11 +211,14 @@ export const CartProvider = ({ children }) => {
             prevItems
                 .map((item) => {
 
-                    if (item.id === productId) {
+                    if (
+                        item.id === productId
+                    ) {
 
                         return {
                             ...item,
-                            quantity: item.quantity - 1
+                            quantity:
+                                item.quantity - 1,
                         };
 
                     }
@@ -167,21 +227,28 @@ export const CartProvider = ({ children }) => {
 
                 })
                 .filter(
-                    (item) => item.quantity > 0
+                    (item) =>
+                        item.quantity > 0
                 )
 
         );
 
     };
 
+    // ========================================
     // CLEAR CART
+    // ========================================
+
     const clearCart = () => {
 
         setCartItems([]);
 
     };
 
+    // ========================================
     // CART ITEM COUNT
+    // ========================================
+
     const cartCount = useMemo(() => {
 
         return cartItems.reduce(
@@ -192,7 +259,10 @@ export const CartProvider = ({ children }) => {
 
     }, [cartItems]);
 
+    // ========================================
     // CART TOTAL
+    // ========================================
+
     const cartTotal = useMemo(() => {
 
         return cartItems.reduce(
@@ -210,16 +280,21 @@ export const CartProvider = ({ children }) => {
 
     }, [cartItems]);
 
+    // ========================================
     // PROVIDER
+    // ========================================
+
     return (
 
         <Cartcontext.Provider
             value={{
 
                 // PRODUCTS
+
                 cartItems,
 
                 // ACTIONS
+
                 addToCart,
                 buyNow,
                 removeFromCart,
@@ -228,8 +303,9 @@ export const CartProvider = ({ children }) => {
                 clearCart,
 
                 // CALCULATED VALUES
+
                 cartCount,
-                cartTotal
+                cartTotal,
 
             }}
         >
@@ -242,10 +318,14 @@ export const CartProvider = ({ children }) => {
 
 };
 
+// ========================================
 // CUSTOM HOOK
+// ========================================
+
 export const useCart = () => {
 
-    const context = useContext(Cartcontext);
+    const context =
+        useContext(Cartcontext);
 
     if (!context) {
 

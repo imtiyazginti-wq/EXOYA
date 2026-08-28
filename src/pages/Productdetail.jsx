@@ -56,8 +56,11 @@ const Productdetail = () => {
 
                 setError(false);
 
+                // FIX:
+                // Backend route is /api/products/:id
+
                 const response = await axios.get(
-                    `http://localhost:5000/api-products/${id}`
+                    `http://localhost:5000/api/products/${id}`
                 );
 
                 console.log(
