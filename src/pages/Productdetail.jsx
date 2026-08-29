@@ -20,6 +20,37 @@ import { useCart } from "../context/Cartcontext";
 
 import "./Productdetail.css";
 
+// ==========================================
+// LIVE BACKEND URL
+// ==========================================
+//
+// IMPORTANT:
+// Yahan wahi Render backend URL lagana hai
+// jo Shop.jsx mein lagaya hai.
+//
+// ==========================================
+
+const API_BASE_URL = "https://YOUR-RENDER-BACKEND-URL";
+
+// ==========================================
+// IMAGE URL HELPER
+// ==========================================
+
+const getImageUrl = (image) => {
+    if (!image) {
+        return "";
+    }
+
+    if (
+        image.startsWith("http://") ||
+        image.startsWith("https://")
+    ) {
+        return image;
+    }
+
+    return `${API_BASE_URL}${image.startsWith("/") ? "" : "/"}${image}`;
+};
+
 const Productdetail = () => {
 
     // =========================================
@@ -56,11 +87,8 @@ const Productdetail = () => {
 
                 setError(false);
 
-                // FIX:
-                // Backend route is /api/products/:id
-
                 const response = await axios.get(
-                    `http://localhost:5000/api/products/${id}`
+                    `${API_BASE_URL}/api/products/${id}`
                 );
 
                 console.log(
@@ -68,7 +96,21 @@ const Productdetail = () => {
                     response.data
                 );
 
-                setProduct(response.data);
+                // =========================================
+                // IMPORTANT:
+                // Product image ko full backend URL mein
+                // convert kar rahe hain.
+                //
+                // Is product ko Cart mein bhejne par
+                // image break nahi hogi.
+                // =========================================
+
+                const productData = {
+                    ...response.data,
+                    image: getImageUrl(response.data.image),
+                };
+
+                setProduct(productData);
 
             } catch (error) {
 
@@ -233,11 +275,16 @@ const Productdetail = () => {
     // =========================================
     // PRODUCT IMAGE URL
     // =========================================
+    //
+    // Product ko already full URL mein convert
+    // kiya gaya hai.
+    //
+    // Safety ke liye getImageUrl dobara use kar
+    // rahe hain.
+    // =========================================
 
     const productImage =
-        product.image?.startsWith("http")
-            ? product.image
-            : `http://localhost:5000${product.image}`;
+        getImageUrl(product.image);
 
     // =========================================
     // DISCOUNT
@@ -335,6 +382,12 @@ const Productdetail = () => {
                             src={productImage}
                             alt={product.name}
                             className="product-detail-image"
+                            onError={(event) => {
+                                console.error(
+                                    "Product detail image failed:",
+                                    productImage
+                                );
+                            }}
                         />
 
                         {/* WISHLIST */}
@@ -342,8 +395,8 @@ const Productdetail = () => {
                         <button
                             type="button"
                             className={`detail-wishlist-btn ${isWishlisted
-                                ? "wishlisted"
-                                : ""
+                                    ? "wishlisted"
+                                    : ""
                                 }`}
                             onClick={() =>
                                 setIsWishlisted(

@@ -14,6 +14,49 @@ import "./shop.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+// ==========================================
+// LIVE BACKEND URL
+// ==========================================
+//
+// IMPORTANT:
+// Yahan apna Render backend URL lagana hai.
+//
+// Example:
+// const API_BASE_URL = "https://exoya-backend.onrender.com";
+//
+// ==========================================
+
+const API_BASE_URL = "https://YOUR-RENDER-BACKEND-URL";
+
+// ==========================================
+// IMAGE URL HELPER
+// ==========================================
+//
+// Agar image already full URL hai:
+// https://....
+// to same URL return karega.
+//
+// Agar image:
+// /assets/fashionimages/fashion1.jpg
+// hai,
+// to backend URL ke saath combine karega.
+//
+// Isse Cart / Wishlist mein bhi image URL
+// properly kaam karega.
+// ==========================================
+
+const getImageUrl = (image) => {
+  if (!image) {
+    return "";
+  }
+
+  if (image.startsWith("http://") || image.startsWith("https://")) {
+    return image;
+  }
+
+  return `${API_BASE_URL}${image.startsWith("/") ? "" : "/"}${image}`;
+};
+
 const Shop = () => {
   const { category } = useParams();
 
@@ -36,17 +79,33 @@ const Shop = () => {
         setApiError(false);
 
         const response = await axios.get(
-          "http://localhost:5000/api/products"
+          `${API_BASE_URL}/api/products`
         );
 
         console.log("API Products:", response.data);
 
-        setProducts(response.data);
+        // ==========================================
+        // IMPORTANT:
+        // Product image ko full LIVE URL mein convert
+        // kar rahe hain.
+        //
+        // Is object ko Cart / Wishlist mein bhejne par
+        // image valid rahegi.
+        // ==========================================
+
+        const productsWithImages = response.data.map((product) => ({
+          ...product,
+          image: getImageUrl(product.image),
+        }));
+
+        setProducts(productsWithImages);
+
       } catch (error) {
         console.error("Error fetching products:", error);
 
         setApiError(true);
         setProducts([]);
+
       } finally {
         setLoading(false);
       }
@@ -63,7 +122,10 @@ const Shop = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Scroll to top when page changes
+  // ==========================================
+  // SCROLL TO TOP WHEN PAGE CHANGES
+  // ==========================================
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -134,7 +196,7 @@ const Shop = () => {
   // PAGINATION CALCULATION
   // ==========================================
 
-const totalPages = Math.ceil(
+  const totalPages = Math.ceil(
     filteredProducts.length / productsPerPage
   );
 
@@ -194,6 +256,9 @@ const totalPages = Math.ceil(
   const handleAddToCart = (event, product) => {
     event.preventDefault();
     event.stopPropagation();
+
+    // Product mein already full image URL hai.
+    // Isliye Cart mein image break nahi hogi.
 
     addToCart(product);
 
@@ -284,8 +349,8 @@ const totalPages = Math.ceil(
               </h2>
 
               <p>
-                Please make sure the backend
-                server is running.
+                Please check the backend
+                connection.
               </p>
 
             </div>
@@ -340,9 +405,15 @@ const totalPages = Math.ceil(
                         >
 
                           <img
-                            src={`http://localhost:5000${item.image}`}
+                            src={item.image}
                             alt={item.name}
                             className="product-image"
+                            onError={(event) => {
+                              console.error(
+                                "Product image failed:",
+                                item.image
+                              );
+                            }}
                           />
 
                           {/* BADGE */}
