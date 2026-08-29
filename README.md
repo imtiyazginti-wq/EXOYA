@@ -18,3 +18,7 @@ If you are developing a production application, we recommend using TypeScript wi
 #EXOYA 
 
 My Exoya Shopping Website.
+
+#New Text Are Involve In This File 
+
+Shopping Cart ...
