@@ -6,6 +6,6 @@ export default defineConfig({
 
   preview: {
     host: "0.0.0.0",
-    allowedHosts: ["exoya.onrender.com"],
+    allowedHosts: ["exoya-1.onrender.com"],
   },
 });
