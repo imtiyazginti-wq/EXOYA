@@ -8,7 +8,7 @@ import { useWishlist } from "../../context/WishlistContext";
 import Search from "../search/Search";
 import "./Navbar.css";
 
-import Logo4 from "../../assets/logo/Logo4.png";
+import Logo4 from "../../assets/Logo/Logo4.png";
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
