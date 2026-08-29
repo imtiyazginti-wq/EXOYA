@@ -1,7 +1,15 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, CheckCircle, Lock, MapPin, CreditCard } from "lucide-react";
+import {
+    ArrowLeft,
+    CheckCircle,
+    Lock,
+    MapPin,
+    CreditCard,
+} from "lucide-react";
+
 import { useCart } from "../context/Cartcontext";
+
 import "./Checkout.css";
 
 const Checkout = () => {
@@ -46,15 +54,36 @@ const Checkout = () => {
         clearCart();
     };
 
+    // ================= IMAGE URL =================
+    const getImageUrl = (image) => {
+        if (!image) {
+            return "";
+        }
+
+        // Agar image already complete URL hai
+        if (image.startsWith("http")) {
+            return image;
+        }
+
+        // Agar backend image path /assets/... form mein hai
+        return `http://localhost:5000${image.startsWith("/") ? "" : "/"}${image}`;
+    };
+
     // ================= EMPTY CART =================
 
     if (cartItems.length === 0 && !orderPlaced) {
         return (
             <main className="checkout-empty">
                 <h1>Your Cart is Empty</h1>
-                <p>Add some products before proceeding to checkout.</p>
 
-                <Link to="/shop" className="checkout-back-btn">
+                <p>
+                    Add some products before proceeding to checkout.
+                </p>
+
+                <Link
+                    to="/shop"
+                    className="checkout-back-btn"
+                >
                     Continue Shopping
                 </Link>
             </main>
@@ -74,7 +103,9 @@ const Checkout = () => {
                     EXOYA ORDER
                 </span>
 
-                <h1>Order Placed Successfully!</h1>
+                <h1>
+                    Order Placed Successfully!
+                </h1>
 
                 <p>
                     Thank you for shopping with EXOYA.
@@ -82,7 +113,10 @@ const Checkout = () => {
                 </p>
 
                 <div className="success-details">
-                    <strong>Payment Method</strong>
+                    <strong>
+                        Payment Method
+                    </strong>
+
                     <span>
                         {formData.payment === "cod"
                             ? "Cash on Delivery"
@@ -108,7 +142,10 @@ const Checkout = () => {
 
             <div className="checkout-header">
 
-                <Link to="/cart" className="back-cart">
+                <Link
+                    to="/cart"
+                    className="back-cart"
+                >
                     <ArrowLeft size={18} />
                     Back to Cart
                 </Link>
@@ -118,7 +155,9 @@ const Checkout = () => {
                         EXOYA CHECKOUT
                     </span>
 
-                    <h1>Complete Your Order</h1>
+                    <h1>
+                        Complete Your Order
+                    </h1>
 
                     <p>
                         Enter your details and choose your payment method.
@@ -143,20 +182,29 @@ const Checkout = () => {
                     <section className="checkout-card">
 
                         <div className="section-heading">
+
                             <div className="section-icon">
                                 <MapPin size={20} />
                             </div>
 
                             <div>
-                                <h2>Delivery Information</h2>
-                                <p>Where should we deliver your order?</p>
+                                <h2>
+                                    Delivery Information
+                                </h2>
+
+                                <p>
+                                    Where should we deliver your order?
+                                </p>
                             </div>
+
                         </div>
 
                         <div className="form-grid">
 
                             <div className="form-group">
-                                <label>Full Name</label>
+                                <label>
+                                    Full Name
+                                </label>
 
                                 <input
                                     type="text"
@@ -169,7 +217,9 @@ const Checkout = () => {
                             </div>
 
                             <div className="form-group">
-                                <label>Phone Number</label>
+                                <label>
+                                    Phone Number
+                                </label>
 
                                 <input
                                     type="tel"
@@ -183,7 +233,9 @@ const Checkout = () => {
                             </div>
 
                             <div className="form-group full-width">
-                                <label>Email Address</label>
+                                <label>
+                                    Email Address
+                                </label>
 
                                 <input
                                     type="email"
@@ -196,7 +248,9 @@ const Checkout = () => {
                             </div>
 
                             <div className="form-group full-width">
-                                <label>Address</label>
+                                <label>
+                                    Address
+                                </label>
 
                                 <textarea
                                     name="address"
@@ -209,7 +263,9 @@ const Checkout = () => {
                             </div>
 
                             <div className="form-group">
-                                <label>City</label>
+                                <label>
+                                    City
+                                </label>
 
                                 <input
                                     type="text"
@@ -222,7 +278,9 @@ const Checkout = () => {
                             </div>
 
                             <div className="form-group">
-                                <label>State</label>
+                                <label>
+                                    State
+                                </label>
 
                                 <input
                                     type="text"
@@ -235,7 +293,9 @@ const Checkout = () => {
                             </div>
 
                             <div className="form-group">
-                                <label>PIN Code</label>
+                                <label>
+                                    PIN Code
+                                </label>
 
                                 <input
                                     type="text"
@@ -257,14 +317,21 @@ const Checkout = () => {
                     <section className="checkout-card">
 
                         <div className="section-heading">
+
                             <div className="section-icon">
                                 <CreditCard size={20} />
                             </div>
 
                             <div>
-                                <h2>Payment Method</h2>
-                                <p>Select how you want to pay.</p>
+                                <h2>
+                                    Payment Method
+                                </h2>
+
+                                <p>
+                                    Select how you want to pay.
+                                </p>
                             </div>
+
                         </div>
 
                         <div className="payment-options">
@@ -279,14 +346,22 @@ const Checkout = () => {
                                     type="radio"
                                     name="payment"
                                     value="cod"
-                                    checked={formData.payment === "cod"}
+                                    checked={
+                                        formData.payment === "cod"
+                                    }
                                     onChange={handleChange}
                                 />
 
                                 <div>
-                                    <strong>Cash on Delivery</strong>
-                                    <span>Pay when your order arrives.</span>
+                                    <strong>
+                                        Cash on Delivery
+                                    </strong>
+
+                                    <span>
+                                        Pay when your order arrives.
+                                    </span>
                                 </div>
+
                             </label>
 
                             <label
@@ -299,14 +374,22 @@ const Checkout = () => {
                                     type="radio"
                                     name="payment"
                                     value="online"
-                                    checked={formData.payment === "online"}
+                                    checked={
+                                        formData.payment === "online"
+                                    }
                                     onChange={handleChange}
                                 />
 
                                 <div>
-                                    <strong>Online Payment</strong>
-                                    <span>UPI, Card & Net Banking.</span>
+                                    <strong>
+                                        Online Payment
+                                    </strong>
+
+                                    <span>
+                                        UPI, Card & Net Banking.
+                                    </span>
                                 </div>
+
                             </label>
 
                         </div>
@@ -320,6 +403,7 @@ const Checkout = () => {
                         className="place-order-btn"
                     >
                         <Lock size={18} />
+
                         Place Order • ₹
                         {grandTotal.toLocaleString("en-IN")}
                     </button>
@@ -330,7 +414,9 @@ const Checkout = () => {
 
                 <aside className="checkout-summary">
 
-                    <h2>Order Summary</h2>
+                    <h2>
+                        Order Summary
+                    </h2>
 
                     <div className="summary-products">
 
@@ -340,13 +426,21 @@ const Checkout = () => {
                                 key={item.id}
                             >
 
+                                {/* PRODUCT IMAGE */}
+
                                 <img
-                                    src={item.image}
+                                    src={getImageUrl(item.image)}
                                     alt={item.name}
+                                    onError={(event) => {
+                                        event.currentTarget.style.display =
+                                            "none";
+                                    }}
                                 />
 
                                 <div>
-                                    <h3>{item.name}</h3>
+                                    <h3>
+                                        {item.name}
+                                    </h3>
 
                                     <span>
                                         Qty: {item.quantity}
@@ -369,35 +463,55 @@ const Checkout = () => {
                     <div className="summary-divider" />
 
                     <div className="summary-row">
-                        <span>Subtotal</span>
+
+                        <span>
+                            Subtotal
+                        </span>
+
                         <strong>
-                            ₹{cartTotal.toLocaleString("en-IN")}
+                            ₹
+                            {cartTotal.toLocaleString("en-IN")}
                         </strong>
+
                     </div>
 
                     <div className="summary-row">
-                        <span>Delivery</span>
+
+                        <span>
+                            Delivery
+                        </span>
 
                         <strong>
                             {deliveryCharge === 0
                                 ? "FREE"
                                 : `₹${deliveryCharge}`}
                         </strong>
+
                     </div>
 
                     <div className="summary-divider" />
 
                     <div className="checkout-total">
-                        <span>Total</span>
+
+                        <span>
+                            Total
+                        </span>
 
                         <strong>
-                            ₹{grandTotal.toLocaleString("en-IN")}
+                            ₹
+                            {grandTotal.toLocaleString("en-IN")}
                         </strong>
+
                     </div>
 
                     <div className="secure-checkout">
+
                         <ShieldIcon />
-                        <span>Secure & safe checkout</span>
+
+                        <span>
+                            Secure & safe checkout
+                        </span>
+
                     </div>
 
                 </aside>
