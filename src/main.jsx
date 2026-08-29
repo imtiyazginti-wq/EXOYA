@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 
-import { CartProvider } from "./context/CartContext";
+import { CartProvider } from "./context/Cartcontext";
 
 import "./index.css";
 
