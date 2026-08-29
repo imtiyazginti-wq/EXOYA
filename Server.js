@@ -1,5 +1,7 @@
 import express from "express";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
 
 import One from "./api-data/One.js";
 import One1 from "./api-data/One1.js";
@@ -9,13 +11,28 @@ import One4 from "./api-data/One4.js";
 
 const app = express();
 
-const PORT = 5000;
+// ========================================
+// PATH SETUP
+// ========================================
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// ========================================
+// PORT
+// ========================================
+
+const PORT = process.env.PORT || 5000;
 
 // ========================================
 // MIDDLEWARE
 // ========================================
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  }),
+);
 
 app.use(express.json());
 
@@ -23,7 +40,9 @@ app.use(express.json());
 // STATIC IMAGES
 // ========================================
 
-app.use("/assets", express.static("src/assets"));
+const assetsPath = path.join(__dirname, "src", "assets");
+
+app.use("/assets", express.static(assetsPath));
 
 // ========================================
 // ALL PRODUCTS
@@ -38,6 +57,7 @@ const products = [...One, ...One1, ...One2, ...One3, ...One4];
 app.get("/", (req, res) => {
   res.json({
     message: "EXOYA API is running",
+    products: products.length,
   });
 });
 
@@ -72,13 +92,23 @@ app.get("/api/products/:id", (req, res) => {
 // ========================================
 
 app.get("/api/products/category/:category", (req, res) => {
-  const category = req.params.category.toLowerCase();
+  const category = req.params.category.toLowerCase().trim();
 
   const categoryProducts = products.filter(
-    (item) => item.category.toLocaleLowerCase() === category,
+    (item) => item.category?.toLowerCase().trim() === category,
   );
 
   res.json(categoryProducts);
+});
+
+// ========================================
+// 404
+// ========================================
+
+app.use((req, res) => {
+  res.status(404).json({
+    message: "Route not found",
+  });
 });
 
 // ========================================
@@ -86,6 +116,5 @@ app.get("/api/products/category/:category", (req, res) => {
 // ========================================
 
 app.listen(PORT, () => {
-  console.log(`EXOYA API Server running on http://localhost:${PORT}`);
+  console.log(`EXOYA API running on port ${PORT}`);
 });
-

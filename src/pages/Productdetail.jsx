@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import {
+    useParams,
+    Link,
+    useNavigate,
+} from "react-router-dom";
 
 import {
     ShoppingBag,
@@ -21,16 +25,12 @@ import { useCart } from "../context/Cartcontext";
 import "./Productdetail.css";
 
 // ==========================================
-// LIVE BACKEND URL
-// ==========================================
-//
-// IMPORTANT:
-// Yahan wahi Render backend URL lagana hai
-// jo Shop.jsx mein lagaya hai.
-//
+// BACKEND URL
 // ==========================================
 
-const API_BASE_URL = "https://YOUR-RENDER-BACKEND-URL";
+const API_BASE_URL =
+    import.meta.env.VITE_API_BASE_URL ||
+    "http://localhost:5000";
 
 // ==========================================
 // IMAGE URL HELPER
@@ -41,6 +41,7 @@ const getImageUrl = (image) => {
         return "";
     }
 
+    // Already complete URL
     if (
         image.startsWith("http://") ||
         image.startsWith("https://")
@@ -48,33 +49,47 @@ const getImageUrl = (image) => {
         return image;
     }
 
-    return `${API_BASE_URL}${image.startsWith("/") ? "" : "/"}${image}`;
+    const cleanImage = image.startsWith("/")
+        ? image
+        : `/${image}`;
+
+    return `${API_BASE_URL}${cleanImage}`;
 };
+
+// ==========================================
+// PRODUCT DETAIL
+// ==========================================
 
 const Productdetail = () => {
 
     // =========================================
-    // GET PRODUCT ID FROM URL
+    // PRODUCT ID
     // =========================================
 
     const { id } = useParams();
 
     const navigate = useNavigate();
 
-    const { addToCart, buyNow } = useCart();
+    const {
+        addToCart,
+        buyNow,
+    } = useCart();
 
     // =========================================
-    // PRODUCT FROM API
+    // PRODUCT STATE
     // =========================================
 
-    const [product, setProduct] = useState(null);
+    const [product, setProduct] =
+        useState(null);
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] =
+        useState(true);
 
-    const [error, setError] = useState(false);
+    const [error, setError] =
+        useState(false);
 
     // =========================================
-    // GET SINGLE PRODUCT FROM API
+    // GET PRODUCT
     // =========================================
 
     useEffect(() => {
@@ -84,33 +99,35 @@ const Productdetail = () => {
             try {
 
                 setLoading(true);
-
                 setError(false);
 
-                const response = await axios.get(
-                    `${API_BASE_URL}/api/products/${id}`
-                );
+                const response =
+                    await axios.get(
+                        `${API_BASE_URL}/api/products/${id}`
+                    );
 
                 console.log(
                     "Product Detail API:",
                     response.data
                 );
 
-                // =========================================
-                // IMPORTANT:
-                // Product image ko full backend URL mein
-                // convert kar rahe hain.
-                //
-                // Is product ko Cart mein bhejne par
-                // image break nahi hogi.
-                // =========================================
+                // ====================================
+                // IMPORTANT
+                // Make image URL complete
+                // BEFORE putting product in state.
+                // ====================================
 
                 const productData = {
                     ...response.data,
-                    image: getImageUrl(response.data.image),
+
+                    image: getImageUrl(
+                        response.data.image
+                    ),
                 };
 
-                setProduct(productData);
+                setProduct(
+                    productData
+                );
 
             } catch (error) {
 
@@ -120,7 +137,6 @@ const Productdetail = () => {
                 );
 
                 setError(true);
-
                 setProduct(null);
 
             } finally {
@@ -139,14 +155,17 @@ const Productdetail = () => {
     // QUANTITY
     // =========================================
 
-    const [quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] =
+        useState(1);
 
     // =========================================
     // WISHLIST
     // =========================================
 
-    const [isWishlisted, setIsWishlisted] =
-        useState(false);
+    const [
+        isWishlisted,
+        setIsWishlisted,
+    ] = useState(false);
 
     // =========================================
     // ADD TO CART
@@ -154,9 +173,18 @@ const Productdetail = () => {
 
     const handleAddToCart = () => {
 
-        if (!product) return;
+        if (!product) {
+            return;
+        }
 
-        for (let i = 0; i < quantity; i++) {
+        // Product already has complete
+        // live image URL.
+
+        for (
+            let i = 0;
+            i < quantity;
+            i++
+        ) {
 
             addToCart(product);
 
@@ -170,9 +198,15 @@ const Productdetail = () => {
 
     const handleBuyNow = () => {
 
-        if (!product) return;
+        if (!product) {
+            return;
+        }
 
-        for (let i = 0; i < quantity; i++) {
+        for (
+            let i = 0;
+            i < quantity;
+            i++
+        ) {
 
             buyNow(product);
 
@@ -183,23 +217,28 @@ const Productdetail = () => {
     };
 
     // =========================================
-    // INCREASE QUANTITY
+    // INCREASE
     // =========================================
 
     const increaseQuantity = () => {
 
-        setQuantity((prev) => prev + 1);
+        setQuantity(
+            (prev) => prev + 1
+        );
 
     };
 
     // =========================================
-    // DECREASE QUANTITY
+    // DECREASE
     // =========================================
 
     const decreaseQuantity = () => {
 
-        setQuantity((prev) =>
-            prev > 1 ? prev - 1 : 1
+        setQuantity(
+            (prev) =>
+                prev > 1
+                    ? prev - 1
+                    : 1
         );
 
     };
@@ -250,7 +289,8 @@ const Productdetail = () => {
                     </h1>
 
                     <p>
-                        Sorry, this product does not exist.
+                        Sorry, this product does
+                        not exist.
                     </p>
 
                     <Link
@@ -273,18 +313,13 @@ const Productdetail = () => {
     }
 
     // =========================================
-    // PRODUCT IMAGE URL
-    // =========================================
-    //
-    // Product ko already full URL mein convert
-    // kiya gaya hai.
-    //
-    // Safety ke liye getImageUrl dobara use kar
-    // rahe hain.
+    // IMAGE
     // =========================================
 
     const productImage =
-        getImageUrl(product.image);
+        getImageUrl(
+            product.image
+        );
 
     // =========================================
     // DISCOUNT
@@ -297,10 +332,16 @@ const Productdetail = () => {
             ? Math.round(
                 (
                     (
-                        Number(product.oldPrice) -
-                        Number(product.price)
+                        Number(
+                            product.oldPrice
+                        ) -
+                        Number(
+                            product.price
+                        )
                     ) /
-                    Number(product.oldPrice)
+                    Number(
+                        product.oldPrice
+                    )
                 ) * 100
             )
             : 0;
@@ -313,12 +354,16 @@ const Productdetail = () => {
 
         <main className="product-detail-page">
 
+            {/* ================================= */}
             {/* BACK BUTTON */}
+            {/* ================================= */}
 
             <button
                 type="button"
                 className="product-back-btn"
-                onClick={() => navigate(-1)}
+                onClick={() =>
+                    navigate(-1)
+                }
                 aria-label="Go back"
             >
 
@@ -326,7 +371,9 @@ const Productdetail = () => {
 
             </button>
 
+            {/* ================================= */}
             {/* BREADCRUMB */}
+            {/* ================================= */}
 
             <div className="product-breadcrumb">
 
@@ -354,17 +401,19 @@ const Productdetail = () => {
 
             </div>
 
-            {/* MAIN PRODUCT SECTION */}
+            {/* ================================= */}
+            {/* MAIN PRODUCT */}
+            {/* ================================= */}
 
             <section className="product-detail-container">
 
-                {/* LEFT IMAGE */}
+                {/* ================================= */}
+                {/* IMAGE */}
+                {/* ================================= */}
 
                 <div className="product-detail-image-section">
 
                     <div className="product-detail-image-wrapper">
-
-                        {/* BADGE */}
 
                         {product.badge && (
 
@@ -376,13 +425,11 @@ const Productdetail = () => {
 
                         )}
 
-                        {/* PRODUCT IMAGE */}
-
                         <img
                             src={productImage}
                             alt={product.name}
                             className="product-detail-image"
-                            onError={(event) => {
+                            onError={() => {
                                 console.error(
                                     "Product detail image failed:",
                                     productImage
@@ -395,8 +442,8 @@ const Productdetail = () => {
                         <button
                             type="button"
                             className={`detail-wishlist-btn ${isWishlisted
-                                    ? "wishlisted"
-                                    : ""
+                                ? "wishlisted"
+                                : ""
                                 }`}
                             onClick={() =>
                                 setIsWishlisted(
@@ -425,7 +472,9 @@ const Productdetail = () => {
 
                 </div>
 
-                {/* RIGHT PRODUCT INFORMATION */}
+                {/* ================================= */}
+                {/* INFORMATION */}
+                {/* ================================= */}
 
                 <div className="product-detail-info">
 
@@ -437,7 +486,7 @@ const Productdetail = () => {
 
                     </span>
 
-                    {/* PRODUCT NAME */}
+                    {/* NAME */}
 
                     <h1 className="detail-product-name">
 
@@ -458,7 +507,8 @@ const Productdetail = () => {
 
                             <span>
 
-                                {product.rating || "0.0"}
+                                {product.rating ||
+                                    "0.0"}
 
                             </span>
 
@@ -466,8 +516,9 @@ const Productdetail = () => {
 
                         <span className="detail-review-count">
 
-                            {product.reviews || 0}
-                            {" "}
+                            {product.reviews ||
+                                0}{" "}
+
                             Ratings & Reviews
 
                         </span>
@@ -599,12 +650,14 @@ const Productdetail = () => {
 
                     <div className="detail-action-buttons">
 
-                        {/* ADD TO CART */}
+                        {/* ADD CART */}
 
                         <button
                             type="button"
                             className="detail-add-cart-btn"
-                            onClick={handleAddToCart}
+                            onClick={
+                                handleAddToCart
+                            }
                         >
 
                             <ShoppingBag size={20} />
@@ -620,7 +673,9 @@ const Productdetail = () => {
                         <button
                             type="button"
                             className="detail-buy-btn"
-                            onClick={handleBuyNow}
+                            onClick={
+                                handleBuyNow
+                            }
                         >
 
                             <Zap size={19} />
@@ -633,7 +688,7 @@ const Productdetail = () => {
 
                     </div>
 
-                    {/* SERVICE FEATURES */}
+                    {/* SERVICES */}
 
                     <div className="detail-services">
 
@@ -652,7 +707,8 @@ const Productdetail = () => {
                                 </strong>
 
                                 <span>
-                                    Free delivery on this product
+                                    Free delivery on this
+                                    product
                                 </span>
 
                             </div>
@@ -663,7 +719,9 @@ const Productdetail = () => {
 
                             <div className="service-icon">
 
-                                <ShieldCheck size={20} />
+                                <ShieldCheck
+                                    size={20}
+                                />
 
                             </div>
 
@@ -685,7 +743,9 @@ const Productdetail = () => {
 
                             <div className="service-icon">
 
-                                <RotateCcw size={20} />
+                                <RotateCcw
+                                    size={20}
+                                />
 
                             </div>
 
@@ -696,7 +756,8 @@ const Productdetail = () => {
                                 </strong>
 
                                 <span>
-                                    Easy return & replacement
+                                    Easy return &
+                                    replacement
                                 </span>
 
                             </div>
@@ -709,7 +770,9 @@ const Productdetail = () => {
 
             </section>
 
-            {/* PRODUCT INFORMATION */}
+            {/* ================================= */}
+            {/* EXTRA INFORMATION */}
+            {/* ================================= */}
 
             <section className="product-extra-section">
 
@@ -723,9 +786,7 @@ const Productdetail = () => {
 
                         <div>
 
-                            <span>
-                                ★
-                            </span>
+                            <span>★</span>
 
                             <h3>
                                 Highly Rated
@@ -740,9 +801,7 @@ const Productdetail = () => {
 
                         <div>
 
-                            <span>
-                                ✓
-                            </span>
+                            <span>✓</span>
 
                             <h3>
                                 Quality Product
@@ -757,9 +816,7 @@ const Productdetail = () => {
 
                         <div>
 
-                            <span>
-                                ⚡
-                            </span>
+                            <span>⚡</span>
 
                             <h3>
                                 Fast Delivery
@@ -774,9 +831,7 @@ const Productdetail = () => {
 
                         <div>
 
-                            <span>
-                                ♡
-                            </span>
+                            <span>♡</span>
 
                             <h3>
                                 Customer Favorite
@@ -798,7 +853,6 @@ const Productdetail = () => {
         </main>
 
     );
-
 };
 
 export default Productdetail;
